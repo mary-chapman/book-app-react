@@ -6,7 +6,7 @@ class BookItem extends React.Component {
             isEditMode: false
         }
     }
-
+    
     regMode() {
         return (
             <div>
@@ -47,15 +47,21 @@ class BookApp extends React.Component {
         }
     }
     deleteItem(index) {
-        console.log("DELETE BOOK" + index)
+        console.log(this.state.books[index])
+        // console.log(this.state.books[index].title)
+        // this.setState({books: books[index]})
     }
     render() {
+        console.log(this.state)
         return (
             <div>
                 <h1>Book List</h1>
                 {this.state.books.map((book, index) => {
                     return (
-                        <BookItem key={index} title={book.title} deleteItemFn={this.deleteItem}  index={index}/>
+                        <BookItem key={index} 
+                                  title={book.title} 
+                                  deleteItemFn={this.deleteItem.bind(this)}  
+                                  index={index}/>
                     )
                 })}
             </div>
