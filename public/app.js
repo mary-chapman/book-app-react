@@ -20,7 +20,7 @@ class BookItem extends React.Component {
         return (
             <div>
                 <input ref={(input) => this.userInput = input} defaultValue = {this.props.title} />
-                <button onClick={() => this.props.saveEditFn(this.userInput.value, this.props.index)}>SAVE</button>
+                <button onClick={() => { this.setState({isEditMode: false}); this.props.saveEditFn(this.userInput.value, this.props.index)} }>SAVE</button>
                 <button onClick={() => this.setState({isEditMode: false})}>CANCEL</button>
                 </div>
         )
@@ -52,10 +52,10 @@ class BookApp extends React.Component {
         })
     }
     saveEdit(userInput, index) {
-        console.log(userInput)
         this.state.books[index].title = userInput
         this.forceUpdate()
 
+        console.log(this.state.books[index].title)
     }
     render() {
         console.log(this.state)
