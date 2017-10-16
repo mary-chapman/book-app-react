@@ -45,6 +45,10 @@ class BookApp extends React.Component {
         this.state = {
             books: [{title: "Book1Test"}, {title: "Book2Test"}]
         }
+        this.addBook = this.addBook.bind(this)
+    }
+    addBook(userInput) {
+        this.setState({ books: [...this.state.books, {title: userInput} ]})
     }
     deleteBook(index) {
         this.setState({
@@ -71,7 +75,10 @@ class BookApp extends React.Component {
                                   index={index}/>
                     )
                 })}
-
+                <div>
+                    <input ref={userInput => this.userInput = userInput}/>
+                    <button onClick={() => this.addBook(this.userInput.value)}>ADD</button>
+                </div>
             </div>
         )
     }
