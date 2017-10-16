@@ -6,12 +6,13 @@ class BookItem extends React.Component {
             isEditMode: false
         }
     }
+
     regMode() {
         return (
             <div>
                 <p>{this.props.title}</p>
                 <button onClick={() => this.setState({isEditMode: true})}>EDIT</button>
-                <button>DEL</button>
+                <button onClick={() => this.props.deleteItemFn(this.props.index)}>DEL</button>
             </div>
         )
     }
@@ -34,12 +35,6 @@ class BookItem extends React.Component {
                 <div>{this.regMode()}</div>
             )
         }
-        // return (
-        //     <div>
-        //         {/* <div>TEST</div> */}
-        //         <h1>{this.editMode()}</h1>
-        //     </div>
-        // )
     }
 }
 
@@ -51,13 +46,16 @@ class BookApp extends React.Component {
             books: [{title: "Book1Test"}, {title: "Book2Test"}]
         }
     }
+    deleteItem(index) {
+        console.log("DELETE BOOK" + index)
+    }
     render() {
         return (
             <div>
                 <h1>Book List</h1>
                 {this.state.books.map((book, index) => {
                     return (
-                        <BookItem key={index} title={book.title} />
+                        <BookItem key={index} title={book.title} deleteItemFn={this.deleteItem}  index={index}/>
                     )
                 })}
             </div>
