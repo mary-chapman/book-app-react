@@ -19,8 +19,8 @@ class BookItem extends React.Component {
     editMode() {
         return (
             <div>
-                <input defaultValue = {this.props.title} />
-                <button>SAVE</button>
+                <input ref={(input) => this.userInput = input} defaultValue = {this.props.title} />
+                <button onClick={() => this.props.saveEditFn(this.userInput.value, this.props.index)}>SAVE</button>
                 <button onClick={() => this.setState({isEditMode: false})}>CANCEL</button>
                 </div>
         )
@@ -47,13 +47,14 @@ class BookApp extends React.Component {
         }
     }
     deleteBook(index) {
-
-        // var newData = this.state.books.slice(); //copy array
-        // newData.splice(index, 1); //remove element
-        // this.setState({books: newData}); //update state
-
         this.setState({
-            books: this.state.books.filter((x,i) => i != index) })
+            books: this.state.books.filter((x,i) => i != index) 
+        })
+    }
+    saveEdit(userInput, index) {
+        console.log(userInput)
+        this.state.books[index].title = userInput
+        this.forceUpdate()
 
     }
     render() {
@@ -66,9 +67,11 @@ class BookApp extends React.Component {
                         <BookItem key={index} 
                                   title={book.title} 
                                   deleteBook={this.deleteBook.bind(this)}
+                                  saveEditFn = {this.saveEdit.bind(this)}
                                   index={index}/>
                     )
                 })}
+
             </div>
         )
     }
