@@ -1,22 +1,16 @@
 class BookItem extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+
+        this.state = {
+            isEditMode: false
+        }
     }
-    // editMode() {
-    //     console.log("CLICKED")
-    //     return (
-    //         <div>
-    //             <input />
-    //             <button>SAVE</button>
-    //             <button>CANCEL</button>
-    //         </div>
-    //     )
-    // }
     regMode() {
         return (
             <div>
                 <p>{this.props.title}</p>
-                <button>EDIT</button>
+                <button onClick={() => this.setState({isEditMode: true})}>EDIT</button>
                 <button>DEL</button>
             </div>
         )
@@ -26,17 +20,26 @@ class BookItem extends React.Component {
             <div>
                 <input defaultValue = {this.props.title} />
                 <button>SAVE</button>
-                <button>CANCEL</button>
-            </div>
+                <button onClick={() => this.setState({isEditMode: false})}>CANCEL</button>
+                </div>
         )
     }
     render() {
-        return (
-            <div>
-                {/* <div>TEST</div> */}
-                <h1>{this.editMode()}</h1>
-            </div>
-        )
+        if (this.state.isEditMode) {
+            return (
+                <div>{this.editMode()}</div>
+            )
+        } else {
+            return (
+                <div>{this.regMode()}</div>
+            )
+        }
+        // return (
+        //     <div>
+        //         {/* <div>TEST</div> */}
+        //         <h1>{this.editMode()}</h1>
+        //     </div>
+        // )
     }
 }
 
